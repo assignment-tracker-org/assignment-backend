@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 <modelVersion>4.0.0</modelVersion>
 
@@ -21,7 +22,12 @@
 
 <properties>
     <java.version>17</java.version>
-    <sonar.coverage.exclusions>**/*</sonar.coverage.exclusions>
+
+    <!-- SonarQube JaCoCo Report Path -->
+    <sonar.coverage.jacoco.xmlReportPaths>
+        ${project.build.directory}/site/jacoco/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
+
 </properties>
 
 <dependencies>
@@ -60,6 +66,7 @@
 <build>
     <plugins>
 
+        <!-- Maven Compiler Plugin -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -76,16 +83,17 @@
                 </annotationProcessorPaths>
             </configuration>
         </plugin>
-           <plugin>
+
+        <!-- JaCoCo Code Coverage Plugin -->
+        <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.11</version>
 
             <executions>
 
-                <!-- Prepare JaCoCo agent -->
+                <!-- Attach JaCoCo agent -->
                 <execution>
-                    <id>prepare-agent</id>
                     <goals>
                         <goal>prepare-agent</goal>
                     </goals>
@@ -94,17 +102,16 @@
                 <!-- Generate coverage report -->
                 <execution>
                     <id>report</id>
-                    <phase>test</phase>
+                    <phase>verify</phase>
                     <goals>
                         <goal>report</goal>
                     </goals>
-                      </execution>
+                </execution>
 
             </executions>
         </plugin>
 
-
-
+        <!-- Spring Boot Plugin -->
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
