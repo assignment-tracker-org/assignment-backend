@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Java
@@ -23,7 +23,7 @@ jobs:
         run: mvn clean verify
 
       - name: Sonar Scan
-        run: mvn sonar:sonar \
+        run: mvn clean verify sonar:sonar \
           -Dsonar.projectKey=assignmenttracker \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
