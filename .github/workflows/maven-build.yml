@@ -19,11 +19,12 @@ jobs:
           java-version: 17
           cache: maven
 
-      - name: Build and Test
+      - name: Build, Test & Coverage
         run: mvn clean verify
 
-      - name: Sonar Scan
-        run: mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=assignmenttracker \
+      - name: SonarCloud Analysis
+        run: mvn sonar:sonar \
+          -Dsonar.projectKey=kamatchi-2005_assignment-backend \
+          -Dsonar.organization=kamatchi-2005 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
